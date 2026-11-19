@@ -17,6 +17,17 @@ Internship project at Genetron, June to August 2026, shared with permission. Met
 
 [Code and results](https://github.com/greenMangoes13/methylation_data_agent) · mentor: Bochao Zhang
 
+### Pre-op scheduling triage: the model reads, code decides
+A take-home exercise built on [Cadence's public starter](https://github.com/cadencerpm/preop-exercise). The system reads a surgical patient's record and decides whether the surgery can be scheduled, with evidence a nurse can check. The starter code, sample data, labels, and scorer are theirs. The pipeline and its tests are mine.
+
+- **Design.** One model call per case extracts facts from the free-text notes. Each fact must carry a document ID and a verbatim quote. Code checks every quote against the record, then plain Python applies the four policy rules.
+- **Fails closed.** Nurses review every held case but only sample the cleared ones. So anything missing or unverifiable can never produce READY.
+- **Results on 50 labeled cases.** The decision matched the label in 100% of cases, against 62% for the single-call baseline. Issue categories matched in 98%, against 48%.
+- **Caught a fail-open bug.** A five-case spot check showed that dropping an unverified vital sign made a patient with blood pressure 161/117 come out READY. Vitals are now verified by value, and an unverifiable reading blocks READY.
+- **Limits.** The 50 cases were also my development set, so the scores are optimistic. There is no held-out evaluation yet.
+
+[Code and write-up](https://github.com/greenMangoes13/preop-exercise)
+
 ### Clinical decision-support agent with human review
 A breast ultrasound triage agent that must get clinician sign-off before it finalizes a label. Built with smolagents and Qwen2.5-VL, with custom tools for BI-RADS reference, PubMed search, and clinician review.
 
