@@ -7,7 +7,7 @@ I am a senior at MIT studying Computation and Cognition (Course 6-9). I am looki
 ## Selected work
 
 ### Literature agent for cancer biomarker discovery (MethyAgent)
-Internship project at Genetron, June to August 2026, shared with permission. MethyAgent is a multi-agent system for early cancer screening research on blood cfDNA methylation. I owned the literature agent. A researcher types a question, and it searches PubMed, reads the papers, and fills in a table of cancer type, sample type, AUC, cohort size, markers, and dataset IDs.
+Internship project at Z.ai and Genetron Lab, June to August 2026, shared with permission. MethyAgent is a multi-agent system for early cancer screening research on blood cfDNA methylation. I owned the literature agent. A researcher types a question, and it searches PubMed, reads the papers, and fills in a table of cancer type, sample type, AUC, cohort size, markers, and dataset IDs.
 
 - **Built it.** A query parser that asks follow-up questions, then two-stage extraction. A keyword filter drops about 70% of papers before any model call.
 - **Made it stop.** The tool-using agent repeated the same search about a dozen times. Prompt instructions did not fix it. Hard limits in code did: searches fell from 12 to 2, model calls from 72 to 13, and run time from over 10 minutes to about 65 seconds.
@@ -60,7 +60,7 @@ A four-person MIT course paper with Linrui Ma, Winston Qian, and Yiwei Liang. It
 - We added structure-aware ProstT5 embeddings to the sequence-based retrieval, and task-specific prompts. On proteins unlike the retrieval set, the entity-level score (Meta-BLEU-2) rose from 16.1 to 34.4 for domain and motif identification, and from 28.1 to 43.0 for catalytic activity.
 - Limits. Each task was scored on 256 sampled test proteins with one model, Gemini 2.5 Flash. The paper does not report the full test set.
 
-[Group code](https://github.com/winstonqian/SAPER)
+[Paper](https://github.com/greenMangoes13/greenMangoes13/blob/main/papers/SAPER.pdf) · [Group code](https://github.com/winstonqian/SAPER)
 
 ## More
 
