@@ -18,7 +18,7 @@ Internship project at Genetron, June to August 2026, shared with permission. Met
 [Code and results](https://github.com/greenMangoes13/methylation_data_agent) · mentor: Bochao Zhang
 
 ### Pre-op scheduling triage: the model reads, code decides
-A take-home exercise built on [Cadence's public starter](https://github.com/cadencerpm/preop-exercise). The system reads a surgical patient's record and decides whether the surgery can be scheduled, with evidence a nurse can check. The starter code, sample data, labels, and scorer are theirs. The pipeline and its tests are mine.
+A take-home exercise built on a public take-home starter. The system reads a surgical patient's record and decides whether the surgery can be scheduled, with evidence a nurse can check. The starter code, sample data, labels, and scorer are not mine, and the repository README credits their source. The pipeline and its tests are mine.
 
 - **Design.** One model call per case extracts facts from the free-text notes. Each fact must carry a document ID and a verbatim quote. Code checks every quote against the record, then plain Python applies the four policy rules.
 - **Fails closed.** Nurses review every held case but only sample the cleared ones. So anything missing or unverifiable can never produce READY.
@@ -26,7 +26,7 @@ A take-home exercise built on [Cadence's public starter](https://github.com/cade
 - **Caught a fail-open bug.** A five-case spot check showed that dropping an unverified vital sign made a patient with blood pressure 161/117 come out READY. Vitals are now verified by value, and an unverifiable reading blocks READY.
 - **Limits.** The 50 cases were also my development set, so the scores are optimistic. There is no held-out evaluation yet.
 
-[Code and write-up](https://github.com/greenMangoes13/preop-exercise)
+[Code and write-up](https://github.com/greenMangoes13/preop-triage-grounded-extraction)
 
 ### Clinical decision-support agent with human review
 A breast ultrasound triage agent that must get clinician sign-off before it finalizes a label. Built with smolagents and Qwen2.5-VL, with custom tools for BI-RADS reference, PubMed search, and clinician review.
@@ -53,6 +53,14 @@ A three-person MIT course paper with Rachel Li and Winston Qian, built on the EE
 - Across 20 subjects, the learned EEG-to-video delay never peaks at zero lag. The mean expected delay is about 790 ms.
 
 [Paper](https://github.com/greenMangoes13/mmai/blob/master/final-project/NeuroCLIP_LATA.pdf) · [Group code](https://github.com/winstonqian/EEG2Video)
+
+### SAPER: structure-aware retrieval for protein function annotation
+A four-person MIT course paper with Linrui Ma, Winston Qian, and Yiwei Liang. It extends RAPM, a method that describes what a protein does by retrieving similar annotated proteins and passing them to a language model, with no fine-tuning.
+
+- We added structure-aware ProstT5 embeddings to the sequence-based retrieval, and task-specific prompts. On proteins unlike the retrieval set, the entity-level score (Meta-BLEU-2) rose from 16.1 to 34.4 for domain and motif identification, and from 28.1 to 43.0 for catalytic activity.
+- Limits. Each task was scored on 256 sampled test proteins with one model, Gemini 2.5 Flash. The paper does not report the full test set.
+
+[Group code](https://github.com/winstonqian/SAPER)
 
 ## More
 
