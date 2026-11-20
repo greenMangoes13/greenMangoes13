@@ -6,14 +6,14 @@ I am a senior at MIT studying Computation and Cognition (Course 6-9). I am looki
 
 ## Selected work
 
-### Literature agent for cancer biomarker discovery (MethyAgent)
-Internship project at Z.ai and Genetron Lab, June to August 2026, shared with permission. MethyAgent is a multi-agent system for early cancer screening research on blood cfDNA methylation. I owned the literature agent. A researcher types a question, and it searches PubMed, reads the papers, and fills in a table of cancer type, sample type, AUC, cohort size, markers, and dataset IDs.
+### Evaluating a literature agent for cancer biomarker discovery (MethyAgent)
+Internship project at Z.ai and Genetron Lab, June to August 2026, shared with permission. MethyAgent is a multi-agent system for early cancer screening research on blood cfDNA methylation. The project already had a first literature agent from my mentor. I built a second search and extraction path next to it, then measured how far its output can be trusted. A researcher types a question, and it searches PubMed, reads the papers, and fills in a table of cancer type, sample type, AUC, cohort size, markers, and dataset IDs.
 
-- **Built it.** A query parser that asks follow-up questions, then two-stage extraction. A keyword filter drops about 70% of papers before any model call.
-- **Made it stop.** The tool-using agent repeated the same search about a dozen times. Prompt instructions did not fix it. Hard limits in code did: searches fell from 12 to 2, model calls from 72 to 13, and run time from over 10 minutes to about 65 seconds.
-- **Measured it without hand labels.** Plain code checks whether each extracted value appears in the source paper. Across 39 papers, 86% of values did (169 of 197). Cohort sizes were the weak spot at 50%.
-- **Tested the checker.** The reviewer model I had relied on caught 0 of 27 unsupported values. I built a seven-check checklist reviewer and planted known errors in real papers. It named the right problem in 40 of 40 cases, against 12 of 40 for the old one.
-- **Limits.** The sample is three search questions on two cancers. "Appears in the paper" is not the same as correct. The checklist reviewer is about twice as slow and raised 1 false alarm in 10 clean papers.
+- **Measured it without hand labels.** Plain code checks whether each extracted value appears in the text the model was shown. Across 39 papers, 169 of 197 values did (86%). Cohort sizes were the weak spot: 23 of 46.
+- **Tested the checker.** The reviewer model I had relied on removed 0 of the 27 unsupported values. 23 of those were cohort sizes, which I had never asked it to check. I built a seven-check checklist reviewer and planted known errors in real papers. It named the right problem in 40 of 40 cases, against 12 of 40 for the old one.
+- **Made the agent stop.** The tool-using agent repeated the same search about a dozen times. Prompt instructions did not fix it. Hard limits in code did: searches fell from 12 to 2, model calls from 72 to 13, and run time from over 10 minutes to about 65 seconds.
+- **Built the pipeline.** A clarifier that asks follow-up questions and builds the PubMed search, on top of my mentor's query parser. Then a keyword filter with no model call, a cap on papers per question, and LLM extraction into a fixed schema, with code rules that overrule the model.
+- **Limits.** The literature path is a prototype and was not part of the deployed service. The sample is three search questions on two cancers. "Appears in the paper" is not the same as correct. I planted the test errors myself, and none was a cohort-size error. The checklist reviewer is about twice as slow and deleted real values in 1 of 10 clean papers. I ran the grounding and reviewer measurements in November 2026, after the internship.
 
 [Code and results](https://github.com/greenMangoes13/methylation_data_agent) · mentor: Bochao Zhang
 
